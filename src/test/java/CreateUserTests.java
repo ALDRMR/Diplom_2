@@ -1,36 +1,10 @@
-import apiclient.ApiUserClient;
 import model.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
 
-public class CreateUserTests {
-
-    private ApiUserClient apiUserClient;
-    private String testUserAccessToken;
-
-    @BeforeEach
-    public void setUp() {
-        apiUserClient = new ApiUserClient();
-        testUserAccessToken = null;
-    }
-
-    @AfterEach
-    public void tearDown() {
-        if (testUserAccessToken != null) {
-            apiUserClient.deleteUser(testUserAccessToken)
-                    .statusCode(202)
-                    .body("success", equalTo(true));
-        }
-    }
-
-    private String getRandomString() {
-        return UUID.randomUUID().toString();
-    }
+public class CreateUserTests extends BaseTest {
 
     @Test
     @DisplayName("Создать уникального пользователя")
@@ -42,7 +16,7 @@ public class CreateUserTests {
 
         User user = new User(email, password, name);
 
-        testUserAccessToken = apiUserClient.createUser(user)
+        accessToken = apiUserClient.createUser(user)
                 .statusCode(200)
                 .body("success", equalTo(true))
                 .extract()
@@ -59,7 +33,7 @@ public class CreateUserTests {
 
         User user = new User(email, password, name);
 
-        testUserAccessToken = apiUserClient.createUser(user)
+        accessToken = apiUserClient.createUser(user)
                 .statusCode(200)
                 .extract()
                 .path("accessToken");
@@ -84,5 +58,4 @@ public class CreateUserTests {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
-
 }
