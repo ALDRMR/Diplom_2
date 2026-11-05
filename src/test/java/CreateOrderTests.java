@@ -108,7 +108,7 @@ public class CreateOrderTests {
     public void shouldNotCreateOrderWithInvalidIngredientHash() {
         accessToken = createTestUser();
 
-        List<String> invalidHashList = List.of("invalid_hash");
+        List<String> invalidHashList = List.of("invalid");
         Order order = new Order(invalidHashList);
 
         apiOrderClient.createOrder(order, accessToken)
