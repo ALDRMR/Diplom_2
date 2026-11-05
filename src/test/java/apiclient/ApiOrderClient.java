@@ -13,9 +13,14 @@ public class ApiOrderClient {
 
     @Step("Создание нового заказа POST " + ORDERS_PATH)
     public ValidatableResponse createOrder(Order order, String accessToken) {
-        return given()
-                .spec(ApiTestsConfig.getSpecification())
-                .header("Authorization", accessToken)
+        var requestSpecification = given()
+                .spec(ApiTestsConfig.getSpecification());
+
+        if (accessToken != null) {
+            requestSpecification.header("Authorization", accessToken);
+        }
+
+        return requestSpecification
                 .body(order)
                 .when()
                 .post(ORDERS_PATH)
