@@ -45,4 +45,21 @@ public class ApiUserClient {
                 .spec(ApiTestsConfig.getResponseSpecification());
     }
 
+    @Step("Изменение данных пользователя PATCH " + USER_PATH)
+    public ValidatableResponse updateUser(User user, String accessToken) {
+        var requestSpecification = given()
+                .spec(ApiTestsConfig.getSpecification());
+
+        if (accessToken != null) {
+            requestSpecification.header("Authorization", accessToken);
+        }
+
+        return requestSpecification
+                .body(user)
+                .when()
+                .patch(USER_PATH)
+                .then()
+                .spec(ApiTestsConfig.getResponseSpecification());
+    }
+
 }
