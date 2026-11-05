@@ -1,34 +1,10 @@
-import apiclient.ApiUserClient;
 import model.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
 
-public class UpdateUserTests {
-
-    private ApiUserClient apiUserClient;
-    private String accessToken;
-
-    @BeforeEach
-    public void setUp() {
-        apiUserClient = new ApiUserClient();
-        accessToken = null;
-    }
-
-    @AfterEach
-    public void tearDown() {
-        if (accessToken != null) {
-            apiUserClient.deleteUser(accessToken).statusCode(202);
-        }
-    }
-
-    private String getRandomString() {
-        return UUID.randomUUID().toString();
-    }
+public class UpdateUserTests extends BaseTest {
 
     @Test
     @DisplayName("Изменение данных пользователя с авторизацией")

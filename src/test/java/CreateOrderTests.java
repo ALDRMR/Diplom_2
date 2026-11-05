@@ -1,51 +1,24 @@
-import apiclient.ApiIngredientsClient;
-import apiclient.ApiOrderClient;
-import apiclient.ApiUserClient;
 import model.Order;
 import model.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class CreateOrderTests {
+public class CreateOrderTests extends BaseTest {
 
-    private ApiOrderClient apiOrderClient;
-    private ApiUserClient apiUserClient;
-    private ApiIngredientsClient apiIngredientsClient;
-
-    private String accessToken;
     private List<String> validIngredients;
 
     @BeforeEach
     public void setUp() {
-        apiUserClient = new ApiUserClient();
-        accessToken = null;
-
-        apiOrderClient = new ApiOrderClient();
-        apiIngredientsClient = new ApiIngredientsClient();
-
         validIngredients = apiIngredientsClient.getIngredients()
                 .statusCode(200)
                 .extract()
                 .path("data._id");
-    }
-
-    @AfterEach
-    public void tearDown() {
-        if (accessToken != null) {
-            apiUserClient.deleteUser(accessToken).statusCode(202);
-        }
-    }
-
-    private String getRandomString() {
-        return UUID.randomUUID().toString();
     }
 
     private String createTestUser() {
