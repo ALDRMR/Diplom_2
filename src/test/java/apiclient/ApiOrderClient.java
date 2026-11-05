@@ -2,6 +2,7 @@ package apiclient;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+import model.Order;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,10 +12,11 @@ public class ApiOrderClient {
     private static final String ORDERS_ALL_PATH = "/api/orders/all";
 
     @Step("Создание нового заказа POST " + ORDERS_PATH)
-    public ValidatableResponse createOrder(/*должен ли быть тут набор интридиентов?*/) {
+    public ValidatableResponse createOrder(Order order, String accessToken) {
         return given()
                 .spec(ApiTestsConfig.getSpecification())
-                .body(/*набор ингридиентов*/)
+                .header("Authorization", accessToken)
+                .body(order)
                 .when()
                 .post(ORDERS_PATH)
                 .then()
@@ -41,4 +43,5 @@ public class ApiOrderClient {
                 .then()
                 .spec(ApiTestsConfig.getResponseSpecification());
     }
+
 }
