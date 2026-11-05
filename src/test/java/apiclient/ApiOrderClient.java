@@ -40,9 +40,13 @@ public class ApiOrderClient {
 
     @Step("Получить заказы конкретного пользователя GET " + ORDERS_PATH)
     public ValidatableResponse getUserOrders(String accessToken) {
-        return given()
-                .spec(ApiTestsConfig.getSpecification())
-                .header("Authorization", accessToken)
+        var requestSpecification = given()
+                .spec(ApiTestsConfig.getSpecification());
+
+        if (accessToken != null) {
+            requestSpecification.header("Authorization", accessToken);
+        }
+        return requestSpecification
                 .when()
                 .get(ORDERS_PATH)
                 .then()

@@ -1,5 +1,6 @@
 import apiclient.ApiIngredientsClient;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
@@ -14,6 +15,7 @@ public class IngredientsTests {
     }
 
     @Test
+    @DisplayName("Получить список ингридиентов")
     public void shouldGetIngredientsList() {
         apiIngredientsClient.getIngredients()
                 .statusCode(200)
