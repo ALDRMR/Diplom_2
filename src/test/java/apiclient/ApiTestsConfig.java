@@ -10,7 +10,7 @@ import io.restassured.specification.ResponseSpecification;
 public class ApiTestsConfig {
     public static RequestSpecification getSpecification(){
         return new RequestSpecBuilder()
-                .setBaseUri("https://stellarburgers.education-services.ru/api/")
+                .setBaseUri("https://stellarburgers.education-services.ru/")
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL)
                 .build();
