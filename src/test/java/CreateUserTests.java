@@ -84,4 +84,5 @@ public class CreateUserTests {
                 .body("success", equalTo(false))
                 .body("message", equalTo("Email, password and name are required fields"));
     }
+
 }
